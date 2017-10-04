@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.modalBase {
+  visibility: hidden;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalWindow {
+  width: 500px;
+  position: relative;
+  margin: 10% auto;
+  padding: 10px 10px 10px 10px;
+  background: #fff;
+}

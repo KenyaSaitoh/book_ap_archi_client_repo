@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>FixedLayoutPage</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <style type="text/css">
+    #container {
+      width: 1024px;
+      float: left;
+      margin: auto;
+      font-size: 20px
+    }
+
+    #sidebar {
+      width: 200px;
+      float: left;
+      background-color: lightblue
+    }
+
+    #main {
+      width: 824px;
+      float: left
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+  <div id="sidebar">
+    <h2>SIDEBAR</h2>
+    <div>Java</div>
+    <div>XML</div>
+    <div>UML</div>
+  </div>
+  <div id="content">
+    <div id="main">
+      <table border="1">
+        <thead>
+        <tr>
+          <th>書籍番号</th>
+          <th>書籍名</th>
+          <th>著者</th>
+          <th>出版社</th>
+          <th>価格</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>10001</td>
+          <td>Effective Java プログラミング言語ガイド</td>
+          <td>Joshua Bloch</td>
+          <td>ピアソンエデュケーション</td>
+          <td>2730</td>
+        </tr>
+        <tr>
+          <td>10002</td>
+          <td>明解J2EE＋アプリケーションサーバ 実践プログラミング</td>
+          <td>坂田 健二</td>
+          <td>秀羽システム</td>
+          <td>2940</td>
+        </tr>
+        <tr>
+          <td>10003</td>
+          <td>ずばりわかる! Javaの良いコード、悪いコード</td>
+          <td>石原 直樹</td>
+          <td>日経BP社</td>
+          <td>2200</td>
+        </tr>
+        <tr>
+          <td>10004</td>
+          <td>XML Hacks エキスパートのためのデータ処理テクニック</td>
+          <td>Michael Fitzgerald</td>
+          <td>オライリージャパン</td>
+          <td>3360</td>
+        </tr>
+        <tr>
+          <td>10005</td>
+          <td>実践 J2EEシステムデザイン</td>
+          <td>ロッド ジョンソン</td>
+          <td>ソフトバンク</td>
+          <td>6825</td>
+        </tr>
+        <tr>
+          <td>10006</td>
+          <td>やさしいJava 第3版</td>
+          <td>高橋 麻奈</td>
+          <td>ソフトバンク</td>
+          <td>2730</td>
+        </tr>
+        <tr>
+          <td>10007</td>
+          <td>やさしいJava 活用編 第2版</td>
+          <td>高橋 麻奈</td>
+          <td>ソフトバンク</td>
+          <td>2730</td>
+        </tr>
+        <tr>
+          <td>10008</td>
+          <td>独習UML 第3版</td>
+          <td>株式会社テクノロジックアート</td>
+          <td>翔泳社</td>
+          <td>3780</td>
+        </tr>
+        <tr>
+          <td>10009</td>
+          <td>J2EEアンチパターン</td>
+          <td>ビル ダドニー</td>
+          <td>日経BP社</td>
+          <td>5040</td>
+        </tr>
+        <tr>
+          <td>10010</td>
+          <td>実践 Spring Framework</td>
+          <td>河村 嘉之</td>
+          <td>日経BP社</td>
+          <td>3990</td>
+        </tr>
+        <tr>
+          <td>10011</td>
+          <td>J2EEプログラマのためのEJBパーフェクトガイド</td>
+          <td>吉原 洋平</td>
+          <td>技術評論社</td>
+          <td>4074</td>
+        </tr>
+        <tr>
+          <td>10012</td>
+          <td>Java Message Service導入ガイド</td>
+          <td>マーク ハプナー</td>
+          <td>ピアソンエデュケーション</td>
+          <td>4410</td>
+        </tr>
+        <tr>
+          <td>10013</td>
+          <td>Java・J2EE・オープンソース Spring入門</td>
+          <td>長谷川 裕一</td>
+          <td>技術評論社</td>
+          <td>3129</td>
+        </tr>
+        <tr>
+          <td>10014</td>
+          <td>標準XML完全解説(上)</td>
+          <td>中山 幹敏</td>
+          <td>技術評論社</td>
+          <td>2394</td>
+        </tr>
+        <tr>
+          <td>10015</td>
+          <td>標準XML完全解説(下)</td>
+          <td>中山 幹敏</td>
+          <td>技術評論社</td>
+          <td>3129</td>
+        </tr>
+        <tr>
+          <td>10016</td>
+          <td>Java言語で学ぶデザインパターン入門</td>
+          <td>結城 浩</td>
+          <td>ソフトバンク</td>
+          <td>3990</td>
+        </tr>
+        <tr>
+          <td>10017</td>
+          <td>Java言語で学ぶデザインパターン入門 マルチスレッド編</td>
+          <td>結城 浩</td>
+          <td>ソフトバンク</td>
+          <td>4935</td>
+        </tr>
+        <tr>
+          <td>10018</td>
+          <td>Java謎＋落とし穴徹底解明</td>
+          <td>前橋 和弥</td>
+          <td>技術評論社</td>
+          <td>2499</td>
+        </tr>
+        <tr>
+          <td>10019</td>
+          <td>Light Weight Java</td>
+          <td>岡本 隆史</td>
+          <td>毎日コミュニケーションズ</td>
+          <td>3360</td>
+        </tr>
+        <tr>
+          <td>10020</td>
+          <td>10日でおぼえるXML入門教室 第2版</td>
+          <td>山田 祥寛</td>
+          <td>翔泳社</td>
+          <td>2625</td>
+        </tr>
+        </tbody>
+      </table>
+      <div style="margin-top: 10px">
+        <input type="button" value="戻る" style="float: right"/>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <script type="text/javascript" src="./js/lib/jquery-1.11.2.js"></script>
+  <script type="text/javascript" src="./js/lib/knockout-debug.js"></script>
+  <script type="text/javascript">
+    function ViewModel(persons) {
+      var self = this;
+      self.persons = ko.observableArray(persons);
+      self.personId = ko.observable('');
+      self.personName = ko.observable('');
+      self.age = ko.observable('');
+      self.gender = ko.observable('');
+
+      self.submit = function() {
+        var person = {
+          personId: self.personId(),
+          personName: self.personName(),
+          age: self.age(),
+          gender: self.gender()
+        };
+        if (self.personId() == '') {
+          $.ajax({
+            url: "http://localhost:8080/rs_person_server/persons",
+            type: "POST",
+            data: JSON.stringify(person),
+            contentType: 'application/json; charset=UTF-8',
+            success: function(response) {
+              person.personId = response.personId;
+              self.persons.push(person);
+              clearPerson();
+            }
+          });
+        } else {
+          $.ajax({
+            url: "http://localhost:8080/rs_person_server/persons/" + self.personId(),
+            type: "PUT",
+            data: JSON.stringify(person),
+            contentType: 'application/json; charset=UTF-8',
+            success: function(response) {
+              self.persons.remove(function(item) {
+                return self.personId() == item.personId;
+              });
+              self.persons.push(person);
+              self.persons.sort(function(left, right) {
+                return left.personId == right.personId ? 0 : (left.personId < right.personId ? -1 : 1);
+              })
+              clearPerson();
+            }
+          });
+        }
+        function clearPerson() {
+          self.personId('');
+          self.personName('');
+          self.age('');
+          self.gender('');
+        }
+      };
+      self.removeRow = function(person) {
+        $.ajax({
+          url: "http://localhost:8080/rs_person_server/persons/" + person.personId,
+          type: "DELETE",
+          contentType: 'application/json; charset=UTF-8',
+          success: function(response) {
+            self.persons.remove(person);
+          }
+        });
+      };
+      self.editRow = function(person) {
+        self.personId(person.personId);
+        self.personName(person.personName);
+        self.age(person.age);
+        self.gender(person.gender);
+      };
+    }
+    jQuery(function($) {
+      $.ajaxSetup({cache: false});
+      $.ajax({
+        url: "http://localhost:8080/rs_person_server/persons",
+        type: "GET",
+        success: function(response) {
+          var viewModel = new ViewModel(response);
+          ko.applyBindings(viewModel);
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+<div id="inputFormBlock">
+  <form id="inputForm" action="#">
+    <label for="personId">ID</label>
+    <input type="text" id="personId" size="3" readonly="true" data-bind="value: personId"/>
+    <label for="personName">名前</label>
+    <input type="text" id="personName" size="10" data-bind="value: personName"/>
+    <label for="age">年齢</label>
+    <input type="text" id="age" size="3" data-bind="value: age"/>
+    <label for="gender">性別</label>
+    <select id="gender" name="gender" data-bind="value: gender">
+      <option value=""></option>
+      <option value="male">男性</option>
+      <option value="female">女性</option>
+    </select>
+    <button type="button" id="submitButton" data-bind="click: submit">登録</button>
+  </form>
+</div>
+<hr/>
+<div id="tableFormBlock">
+  <form id="tableForm" action="#">
+    <table id="personTable" border="1">
+      <thead>
+      <th>ID</th>
+      <th>名前</th>
+      <th>年齢</th>
+      <th>性別</th>
+      <th>編集</th>
+      <th>削除</th>
+      </thead>
+      <tbody data-bind="foreach: persons">
+      <tr>
+        <input type="hidden" data-bind="value: $index"/>
+        <td data-bind="text: personId"></td>
+        <td data-bind="text: personName"></td>
+        <td data-bind="text: age"></td>
+        <td data-bind="text: gender !== '' ? gender === 'male' ? '男性' : '女性': ''"></td>
+        <td>
+          <button type="button" data-bind="click: $parent.editRow">編集</button>
+        </td>
+        <td>
+          <button type="button" data-bind="click: $parent.removeRow">削除</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+</body>
+</html>

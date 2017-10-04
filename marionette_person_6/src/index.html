@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <script type="text/javascript" src="./js/lib/jquery-1.11.2.js"></script>
+  <script type="text/javascript" src="./js/lib/underscore.js"></script>
+  <script type="text/javascript" src="./js/lib/backbone.js"></script>
+  <script type="text/javascript" src="./js/lib/backbone.marionette.js"></script>
+  <script type="text/javascript" src="./js/app.js"></script>
+  <script type="text/javascript" src="./js/model.js"></script>
+  <script type="text/javascript" src="./js/view.js"></script>
+  <script type="text/template" id="inputForm-tmpl">
+    <form id="inputForm">
+      <label for="personId">ID</label>
+      <input type="text" id="personId" value="<%- personId %>" size="3"
+             readonly="true"/>
+      <label for="personName">名前</label>
+      <input type="text" id="personName" value="<%- personName %>" size="10"/>
+      <label for="age">年齢</label>
+      <input type="text" id="age" value="<%- age%>" size="3"/>
+      <label for="gender">性別</label>
+      <select id="gender" name="gender">
+        <option value=""></option>
+        <option value="male"
+        <%- gender === 'male' ? "selected" : "" %>>男性</option>
+        <option value="female"
+        <%- gender === 'female' ? "selected" : "" %>>女性</option>
+      </select>
+      <button id="registerButton">登録</button>
+    </form>
+  </script>
+  <script type="text/template" id="tableForm-tmpl">
+    <form id="tableForm">
+      <table id="personTable" border="1">
+        <thead>
+        <th>ID</th>
+        <th>名前</th>
+        <th>年齢</th>
+        <th>性別</th>
+        <th>編集</th>
+        <th>削除</th>
+        </thead>
+        <tbody id="tbodyContainer">
+        </tbody>
+      </table>
+    </form>
+  </script>
+  <script type="text/template" id="row-tmpl">
+    <td><%- personId %></td>
+    <td><%- personName %></td>
+    <td><%- age %></td>
+    <td><%- gender !== '' ? gender === 'male' ? '男性' : '女性': '' %></td>
+    <td>
+      <button type="button" name="edit">編集</button>
+    </td>
+    <td>
+      <button type="button" name="delete">削除</button>
+    </td>
+  </script>
+</head>
+<body>
+<div id="inputFormBlock"></div>
+<hr/>
+<div id="tableFormBlock"></div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <script type="text/javascript" src="./js/lib/jquery-1.11.2.js"></script>
+  <script type="text/javascript" src="./js/lib/underscore.js"></script>
+  <script type="text/javascript" src="./js/lib/backbone.js"></script>
+  <script type="text/javascript" src="./js/lib/backbone.marionette.js"></script>
+  <script type="text/javascript">
+    var Router = Backbone.Router.extend({
+      routes: {
+        '': 'showFooView',
+        'fooHash': 'showFooView',
+        'barHash': 'showBarView'
+      },
+      initialize: function() {
+        this.fooView = new FooView();
+        this.fooView.render();
+        this.barView = new BarView();
+        this.barView.render();
+      },
+      showFooView : function() {
+        this.fooView.$el.show();
+        this.barView.$el.hide();
+      },
+      showBarView : function() {
+        this.fooView.$el.hide();
+        this.barView.$el.show();
+      }
+    });
+    var FooView = Marionette.ItemView.extend({el: '#fooBlock', template: '#foo-tmpl'});
+    var BarView = Marionette.ItemView.extend({el: '#barBlock', template: '#bar-tmpl'});
+
+    jQuery(function($) {
+      new Router();
+      Backbone.history.start();
+      //Backbone.history.navigate('#fooHash');
+    });
+  </script>
+  <style type="text/css">
+    #sidebar { width: 200px; float: left; }
+    #fooBlock { float: left }
+    #barBlock { float: left }
+  </style>
+  <script type="text/template" id="foo-tmpl">
+    <div id="fooView">
+      <div>Foo View</div>
+      <div><input type="text" /></div>
+    </div>
+  </script>
+  <script type="text/template" id="bar-tmpl">
+    <div id="barView">
+      <div>Bar View</div>
+      <div><input type="text" /></div>
+    </div>
+  </script>
+</head>
+<body>
+<div id="sidebar">
+  <div><a href="#fooHash" id="foo_link">Foo</a></div>
+  <div><a href="#barHash" id="bar_link">Bar</a></div>
+</div>
+<div id="fooBlock"></div>
+<div id="barBlock"></div>
+</body>
+</html>

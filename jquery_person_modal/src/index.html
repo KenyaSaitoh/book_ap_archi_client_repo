@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <script type="text/javascript" src="./js/lib/jquery-1.12.1.js"></script>
+  <script type="text/javascript" src="./js/lib/underscore.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/modal.css">
+  <script type="text/javascript">
+    jQuery(function($) {
+      $.ajaxSetup({cache: false});
+      $.ajax({
+        url: "http://localhost:8080/rs_person_server/persons",
+        type: "GET",
+        success: function(response) {
+          $.each(response, function(index, person) {
+            addRowToPersonTable(person);
+          })
+        }
+      });
+
+      $('#registerButton').on('click', function(event) {
+        event.preventDefault();
+        var personId = 0;
+        var createMode = false;
+        if ($('#personId').val() == '') {
+          createMode = true;
+          if ($('#personTable tbody tr').size() == 0) {
+            personId = 1;
+          } else {
+            personId = parseInt($('#personTable > tbody > tr:last > td:first').text()) + 1;
+          }
+        } else {
+          personId = $('#personId').val();
+        }
+        var personName = $('#personName').val();
+        var age = $('#age').val();
+        var gender = $('#gender').val();
+        var person = {personId: personId, personName: personName, age: age, gender: gender};
+        $('#personId').val('');
+        $('#personName').val('');
+        $('#age').val('');
+        $('#gender').val('');
+
+        if (createMode) {
+          addRowToPersonTable(person);
+          $.ajax({
+            url: "http://localhost:8080/rs_person_server/persons",
+            type: "POST",
+            data: JSON.stringify(person),
+            contentType: 'application/json; charset=UTF-8'
+          });
+        } else {
+          updateRowToPersonTable(person);
+          $.ajax({
+            url: "http://localhost:8080/rs_person_server/persons",
+            type: "PUT",
+            data: JSON.stringify(person),
+            contentType: 'application/json; charset=UTF-8'
+          });
+        }
+        // モーダルウィンドウを閉じる。
+        $('#modalBase').css('visibility', 'hidden');
+      });
+
+      $('#personTable').on('click', 'button[name="delete"]', function(event) {  // buttonは後からDOMに追加した要素なのでこのようにする
+        var row = $(this).parent().parent();
+        row.remove();
+        var personId = row.children('td:first').text();
+        $.ajax({
+          url: "http://localhost:8080/rs_person_server/persons/remove",
+          type: "POST",
+          data: JSON.stringify({personId: personId}),
+          contentType: 'application/json; charset=UTF-8'
+        });
+      });
+
+      $('#personTable').on('click', 'button[name="edit"]', function(event) {
+        event.preventDefault();
+        var row = $(this).parent().parent();
+        var person = {};
+        person.personId = row.children('td:first').text();
+        person.personName = row.children('td:eq(1)').text();
+        person.age = row.children('td:eq(2)').text();
+        if (row.children('td:eq(3)').text() === '男性') {
+          person.gender = 'male';
+        } else if (row.children('td:eq(3)').text() === '女性') {
+          person.gender = 'female';
+        } else {
+          person.gender = '';
+        }
+        $('#personId').val(person.personId);
+        $('#personName').val(person.personName);
+        $('#age').val(person.age);
+        $('#gender').val(person.gender);
+        // モーダルウィンドウを開く。
+        $('#modalBase').css('visibility', 'visible');
+      });
+
+      function addRowToPersonTable(person) {
+        var template = $("#row-tmpl").text();
+        var compiled = _.template(template);
+        $('#personTable tbody').append(compiled(person));
+      }
+
+      function updateRowToPersonTable(person) {
+        $.each($('#personTable tr'), function(index, row) {
+          if ($(row).children('td').first().text() == person.personId) {
+            $(row).children('td').eq(1).text(person.personName);
+            $(row).children('td').eq(2).text(person.age);
+            if (person.gender === 'male') {
+              $(row).children('td').eq(3).text('男性');
+            } else if (person.gender === 'female') {
+              $(row).children('td').eq(3).text('女性');
+            } else {
+              $(row).children('td').eq(3).text('');
+            }
+            return false;
+          }
+        });
+      }
+
+      $('#openModal').on('click', function(event) {
+        event.preventDefault();
+        // モーダルウィンドウを開く。
+        // モーダルウィンドウの表示・非常時はvisibilityで切り替える。
+        // display:blockとdisplay:noneの切り替えならjQueryのshow()とhide()が使えるが、ここでは使えない。
+        $('#modalBase').css('visibility', 'visible');
+      });
+      $('#closeModal').on('click', function(event) {
+        event.preventDefault();
+        // モーダルウィンドウを閉じる。
+        $('#modalBase').css('visibility', 'hidden');
+      });
+    });
+  </script>
+  <script type="text/template" id="row-tmpl">
+    <tr>
+      <td><%= personId %></td>
+      <td><%= personName %></td>
+      <td><%= age %></td>
+      <td><%= gender != '' ? gender == 'male' ? '男性' : '女性': '' %></td>
+      <td>
+        <button type="button" name="edit">編集</button>
+      </td>
+      <td>
+        <button type="button" name="delete">削除</button>
+      </td>
+    </tr>
+  </script>
+</head>
+<body>
+<div id="modalBase" class="modalBase">
+  <div id="inputFormBlock" class="modalWindow">
+    <a id="closeModal" href="#">X</a>
+    <h2>Modal Window</h2>
+    <form id="inputForm" action="#">
+      <label for="personId">ID</label>
+      <input type="text" id="personId" size="3" readonly="true"/>
+      <label for="personName">名前</label>
+      <input type="text" id="personName" size="10"/>
+      <label for="age">年齢</label>
+      <input type="text" id="age" size="3"/>
+      <label for="gender">性別</label>
+      <select id="gender" name="gender">
+        <option value=""></option>
+        <option value="male">男性</option>
+        <option value="female">女性</option>
+      </select>
+      <button id="registerButton">登録</button>
+    </form>
+  </div>
+</div>
+<div id="tableFormBlock">
+  <form id="tableForm" action="#">
+    <table id="personTable" border="1">
+      <thead>
+      <th>ID</th>
+      <th>名前</th>
+      <th>年齢</th>
+      <th>性別</th>
+      <th>編集</th>
+      <th>削除</th>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <button id="openModal">新規</button>
+  </form>
+</div>
+</body>
+</html>

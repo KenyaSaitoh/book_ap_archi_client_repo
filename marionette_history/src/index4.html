@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <script type="text/javascript" src="./js/lib/jquery-1.11.2.js"></script>
+  <script type="text/javascript" src="./js/lib/underscore.js"></script>
+  <script type="text/javascript" src="./js/lib/backbone.js"></script>
+  <script type="text/javascript" src="./js/lib/backbone.marionette.js"></script>
+  <script type="text/javascript">
+    var MyApp = MyApp || {};
+
+    MyApp.MyRouter = Marionette.AppRouter.extend({
+      routes: {
+        '': 'showFooView',
+        'fooHash': 'showFooView',
+        'barHash': 'showBarView'
+      },
+      showFooView : function() {
+        console.log("showFooView");
+        MyApp.App.targetBlock.show(new MyApp.FooView()); // 毎回Viewを生成するため、入力値を消えてしまう。。
+      },
+      showBarView : function() {
+        console.log("showBarView");
+        MyApp.App.targetBlock.show(new MyApp.BarView());
+      }
+    });
+    MyApp.FooView = Marionette.ItemView.extend({template: '#foo-tmpl'});
+    MyApp.BarView = Marionette.ItemView.extend({template: '#bar-tmpl'});
+
+    jQuery(function($) {
+      MyApp.App = new Marionette.Application();
+      MyApp.App.addRegions({
+        'targetBlock': '#targetBlock'
+      });
+      MyApp.App.addInitializer(function() {
+        MyApp.App.targetBlock.show(new MyApp.FooView());
+        new MyApp.MyRouter();
+        Backbone.history.start();
+        //Backbone.history.navigate('#fooHash');
+      });
+      MyApp.App.start();
+    });
+  </script>
+  <style type="text/css">
+    #sidebar { width: 200px; float: left; }
+    #targetBlock { float: left }
+  </style>
+  <script type="text/template" id="foo-tmpl">
+    <div id="fooView">
+      <div>Foo View</div>
+      <div><input type="text" /></div>
+    </div>
+  </script>
+  <script type="text/template" id="bar-tmpl">
+    <div id="barView">
+      <div>Bar View</div>
+      <div><input type="text" /></div>
+    </div>
+  </script>
+</head>
+<body>
+<div id="sidebar">
+  <div><a href="#fooHash" id="foo_link">Foo</a></div>
+  <div><a href="#barHash" id="bar_link">Bar</a></div>
+</div>
+<div id="targetBlock">
+</div>
+</body>
+</html>
