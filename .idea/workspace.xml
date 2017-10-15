@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="89b38bda-27ca-4f0a-ab77-ccec67736374" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/layout/FixedLayoutPage.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/layout/LiquidLayoutPage1.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/layout/LiquidLayoutPage2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/layout/LiquidLayoutPage3.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/mediaquery/ResponsiveLayoutPage.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/modal/ModalWindow.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/modal/ModalWindow.html" afterPath="" />
-    </list>
+    <list default="true" id="89b38bda-27ca-4f0a-ab77-ccec67736374" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -63,7 +55,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -219,15 +211,15 @@
       <option name="presentableId" value="Default" />
       <updated>1508026013288</updated>
       <workItem from="1508026014554" duration="1765000" />
-      <workItem from="1508027797617" duration="1468000" />
+      <workItem from="1508027797617" duration="1794000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3233000" />
+    <option name="totallyTimeSpent" value="3559000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
