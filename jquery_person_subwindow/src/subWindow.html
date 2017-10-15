@@ -21,7 +21,7 @@
         console.log(person);
         if (personId == '') {
           $.ajax({
-            url: "http://localhost:8080/rs_person_server/persons",
+            url: "http://localhost:8080/person_service/persons",
             type: "POST",
             data: JSON.stringify(person),
             contentType: 'application/json; charset=UTF-8',
@@ -32,7 +32,7 @@
           });
         } else {
           $.ajax({
-            url: "http://localhost:8080/rs_person_server/persons",
+            url: "http://localhost:8080/person_service/persons/" + personId,
             type: "PUT",
             data: JSON.stringify(person),
             contentType: 'application/json; charset=UTF-8',

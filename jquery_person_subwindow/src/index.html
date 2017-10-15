@@ -8,7 +8,7 @@
     jQuery(function($) {
       $.ajaxSetup({cache: false});
       $.ajax({
-        url: "http://localhost:8080/rs_person_server/persons",
+        url: "http://localhost:8080/person_service/persons",
         type: "GET",
         success: function(response) {
           $.each(response, function(index, person) {
@@ -19,15 +19,17 @@
 
       $('#personTable').on('click', 'button[name="delete"]', function(event) {  // buttonは後からDOMに追加した要素なのでこのようにする
         var row = $(this).parent().parent();
-        row.remove();
         var personId = row.children('td:first').text();
         $.ajax({
-          url: "http://localhost:8080/rs_person_server/persons/remove",
-          type: "POST",
-          data: JSON.stringify({personId: personId}),
-          contentType: 'application/json; charset=UTF-8'
+          url: "http://localhost:8080/person_service/persons/" + personId ,
+          type: "DELETE",
+          contentType: 'application/json; charset=UTF-8',
+          success: function(response) {
+            row.remove();
+          }
         });
       });
+
 
       $('#personTable').on('click', 'button[name="edit"]', function(event) {
         var row = $(this).parent().parent();
@@ -43,12 +45,12 @@
           person.gender = '';
         }
         var queryString = $.param(person);
-        var url = "./subwindow.html?" + queryString;
+        var url = "./subWindow.html?" + queryString;
         var subWindow = window.open(url, "subWindow",
             "width=500, height=100, toolbar=no, menubar=no, scrollbars=no");
       });
 
-      $('#openSubwindow').on('click', function(event) {
+      $('#openSubWindow').on('click', function(event) {
         event.preventDefault();
         if ($('#personId').val() == '') {
           createMode = true;
@@ -60,17 +62,15 @@
         } else {
           personId = $('#personId').val();
         }
-        var subWindow = window.open("./subwindow.html", "subWindow",
+        var subWindow = window.open("./subWindow.html", "subWindow",
             "width=500, height=100, toolbar=no, menubar=no, scrollbars=no");
         // 以下のようにサブウィンドウの名前を省略すると、サブウィンドウが何枚も立ち上がってしまうので注意。
-        // var subWindow = window.open("./subwindow.html", '',
+        // var subWindow = window.open("./subWindow.html", '',
         //    "width=500, height=100, toolbar=no, menubar=no, scrollbars=no");
-        // 以下のようにサイズを指定しないとタブが開く。
-        // var subWindow = window.open("./subwindow.html", "subWindow");
+        // 以下のようにサイズを指定しないとタブが開く
+        // var subWindow = window.open("./subWindow.html", "subWindow");
       });
     });
-    // このメソッドをjQueryの初期化処理の外側に出すこともできるが、そうすると、
-    // 呼ばれるたびにそのたびに画面がリフレッシュされてしまう。
     function addRowToPersonTable(person) {
       var template = $("#row-tmpl").text();
       var compiled = _.template(template);
@@ -78,22 +78,6 @@
         person.personId = parseInt($('#personTable > tbody > tr:last > td:first').text()) + 1;
       }
       $('#personTable tbody').append(compiled(person));
-
-      /* テンプレートを使わない場合
-       $('#personTable tbody').append('<tr></tr>');
-       $('#personTable tbody tr:last').append('<td>' + person.personId + '</td>');
-       $('#personTable tbody tr:last').append('<td>' + person.personName + '</td>');
-       $('#personTable tbody tr:last').append('<td>' + person.age + '</td>');
-       if (person.gender === 'male') {
-       $('#personTable tbody tr:last').append('<td>男性</td>');
-       } else if (person.gender === 'female') {
-       $('#personTable tbody tr:last').append('<td>女性</td>');
-       } else {
-       $('#personTable tbody tr:last').append('<td></td>');
-       }
-       $('#personTable tbody tr:last').append('<td><button type="button" name="edit">編集</button></td>');
-       $('#personTable tbody tr:last').append('<td><button type="button" name="delete">削除</button></td>');
-       */
     }
 
     function updateRowToPersonTable(person) {
@@ -115,10 +99,10 @@
   </script>
   <script type="text/template" id="row-tmpl">
     <tr>
-      <td><%= personId %></td>
-      <td><%= personName %></td>
-      <td><%= age %></td>
-      <td><%= gender != '' ? gender == 'male' ? '男性' : '女性': '' %></td>
+      <td><%- personId %></td>
+      <td><%- personName %></td>
+      <td><%- age %></td>
+      <td><%- gender !== '' ? gender === 'male' ? '男性' : '女性': '' %></td>
       <td>
         <button type="button" name="edit">編集</button>
       </td>
@@ -143,7 +127,7 @@
       <tbody>
       </tbody>
     </table>
-    <button id="openSubwindow">新規</button>
+    <button id="openSubWindow">新規</button>
   </form>
 </div>
 </body>

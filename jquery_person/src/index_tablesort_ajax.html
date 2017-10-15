@@ -9,7 +9,7 @@
     jQuery(function($) {
       $.ajaxSetup({cache: false});
       $.ajax({
-        url: "http://localhost:8080/rs_person_server/persons",
+        url: "http://localhost:8080/person_service/persons",
         type: "GET",
         success: function(response) {
           $.each(response, function(index, person) {
@@ -19,55 +19,52 @@
       });
 
       $('#registerButton').on('click', function(event) {
-        var personId = 0;
-        var createMode = false;
-        if ($('#personId').val() == '') {
-          createMode = true;
-          if ($('#personTable tbody tr').size() == 0) {
-            personId = 1;
-          } else {
-            personId = parseInt($('#personTable > tbody > tr:last > td:first').text()) + 1;
-          }
-        } else {
-          personId = $('#personId').val();
-        }
+        var personId = $('#personId').val();
         var personName = $('#personName').val();
         var age = $('#age').val();
         var gender = $('#gender').val();
         var person = {personId: personId, personName: personName, age: age, gender: gender};
-        $('#personId').val('');
-        $('#personName').val('');
-        $('#age').val('');
-        $('#gender').val('');
-
-        if (createMode) {
-          addRowToPersonTable(person);
+        if ($('#personId').val() == '') {
           $.ajax({
-            url: "http://localhost:8080/rs_person_server/persons",
+            url: "http://localhost:8080/person_service/persons",
             type: "POST",
             data: JSON.stringify(person),
-            contentType: 'application/json; charset=UTF-8'
+            contentType: 'application/json; charset=UTF-8',
+            success: function(response) {
+              addRowToPersonTable(response);
+              $('#personId').val('');
+              $('#personName').val('');
+              $('#age').val('');
+              $('#gender').val('');
+            }
           });
         } else {
-          updateRowToPersonTable(person);
           $.ajax({
-            url: "http://localhost:8080/rs_person_server/persons",
+            url: "http://localhost:8080/person_service/persons/" + personId,
             type: "PUT",
             data: JSON.stringify(person),
-            contentType: 'application/json; charset=UTF-8'
+            contentType: 'application/json; charset=UTF-8',
+            success: function(response) {
+              updateRowToPersonTable(person);
+              $('#personId').val('');
+              $('#personName').val('');
+              $('#age').val('');
+              $('#gender').val('');
+            }
           });
         }
       });
 
       $('#personTable').on('click', 'button[name="delete"]', function(event) {  // buttonは後からDOMに追加した要素なのでこのようにする
         var row = $(this).parent().parent();
-        row.remove();
         var personId = row.children('td:first').text();
         $.ajax({
-          url: "http://localhost:8080/rs_person_server/persons/remove",
-          type: "POST",
-          data: JSON.stringify({personId: personId}),
-          contentType: 'application/json; charset=UTF-8'
+          url: "http://localhost:8080/person_service/persons/" + personId ,
+          type: "DELETE",
+          contentType: 'application/json; charset=UTF-8',
+          success: function(response) {
+            row.remove();
+          }
         });
       });
 
@@ -94,22 +91,6 @@
         var template = $("#row-tmpl").text();
         var compiled = _.template(template);
         $('#personTable tbody').append(compiled(person));
-
-        /* テンプレートを使わない場合
-        $('#personTable tbody').append('<tr></tr>');
-        $('#personTable tbody tr:last').append('<td>' + person.personId + '</td>');
-        $('#personTable tbody tr:last').append('<td>' + person.personName + '</td>');
-        $('#personTable tbody tr:last').append('<td>' + person.age + '</td>');
-        if (person.gender === 'male') {
-          $('#personTable tbody tr:last').append('<td>男性</td>');
-        } else if (person.gender === 'female') {
-          $('#personTable tbody tr:last').append('<td>女性</td>');
-        } else {
-          $('#personTable tbody tr:last').append('<td></td>');
-        }
-        $('#personTable tbody tr:last').append('<td><button type="button" name="edit">編集</button></td>');
-        $('#personTable tbody tr:last').append('<td><button type="button" name="delete">削除</button></td>');
-        */
       }
 
       function updateRowToPersonTable(person) {
@@ -131,7 +112,7 @@
 
       $('#ageColumn').on('click', function(event) {
         $.ajax({
-          url: "http://localhost:8080/rs_person_server/persons/age_sort",
+          url: "http://localhost:8080/person_service/persons/age_sort",
           type: "GET",
           data: { ageSortedByAsc: ageSortedByAsc }, // 昇順・降順を表す値をクエリ文字列にセット
           success: function(response) {
@@ -148,10 +129,10 @@
   </script>
   <script type="text/template" id="row-tmpl">
     <tr>
-      <td><%= personId %></td>
-      <td><%= personName %></td>
-      <td><%= age %></td>
-      <td><%= gender != '' ? gender == 'male' ? '男性' : '女性': '' %></td>
+      <td><%- personId %></td>
+      <td><%- personName %></td>
+      <td><%- age %></td>
+      <td><%- gender !== '' ? gender === 'male' ? '男性' : '女性': '' %></td>
       <td>
         <button type="button" name="edit">編集</button>
       </td>

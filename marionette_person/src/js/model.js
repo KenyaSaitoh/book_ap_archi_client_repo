@@ -7,12 +7,12 @@ var Person = Backbone.Model.extend({
     age: '',
     gender: ''
   },
-  urlRoot: 'http://localhost:8080/rs_person_server/persons'
+  urlRoot: 'http://localhost:8080/person_service/persons'
 });
 
 // Modelを定義する。
 // Personのコレクション
 var PersonList = Backbone.Collection.extend({
   model: Person, // 先にModelが宣言されている必要あり
-  url: 'http://localhost:8080/rs_person_server/persons'
+  url: 'http://localhost:8080/person_service/persons'
 });
