@@ -2,31 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89b38bda-27ca-4f0a-ab77-ccec67736374" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backbone_person/src/index_all.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backbone_person/src/index_bad.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/printer/PrinterLayoutPage.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marionette_person_6/marionette_personシリーズについて.xlsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marionette_person_6/src/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marionette_person_6/src/js/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marionette_person_6/src/js/lib/backbone.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marionette_person_6/src/js/lib/backbone.marionette.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marionette_person_6/src/js/lib/jquery-1.11.2.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marionette_person_6/src/js/lib/underscore.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marionette_person_6/src/js/model.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marionette_person_6/src/js/view.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jquery_person/src/index.html" afterPath="$PROJECT_DIR$/jquery_person/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jquery_person/src/index_tablesort_ajax.html" afterPath="$PROJECT_DIR$/jquery_person/src/index_tablesort_ajax.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jquery_person/src/index_tablesort_client.html" afterPath="$PROJECT_DIR$/jquery_person/src/index_tablesort_client.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jquery_person/src/index_validation_client.html" afterPath="$PROJECT_DIR$/jquery_person/src/index_validation_client.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jquery_person_modal/src/index.html" afterPath="$PROJECT_DIR$/jquery_person_modal/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jquery_person_subwindow/src/index.html" afterPath="$PROJECT_DIR$/jquery_person_subwindow/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/knockout_person/src/index.html" afterPath="$PROJECT_DIR$/knockout_person/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marionette_history/src/index2.html" afterPath="$PROJECT_DIR$/marionette_history/src/index2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marionette_history/src/index4.html" afterPath="$PROJECT_DIR$/marionette_history/src/index4.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/css_basic/src/lightbox/lightbox_01.css" afterPath="$PROJECT_DIR$/css_basic/src/modal/ModalWindow.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/css_basic/src/lightbox/lightbox_01.html" afterPath="$PROJECT_DIR$/css_basic/src/modal/ModalWindow.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/jquery_person_subwindow/src/subwindow.html" afterPath="$PROJECT_DIR$/jquery_person_subwindow/src/subWindow.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/layout/FixedLayoutPage.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/layout/LiquidLayoutPage1.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/layout/LiquidLayoutPage2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/layout/LiquidLayoutPage3.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/mediaquery/ResponsiveLayoutPage.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/modal/ModalWindow.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/css_basic/src/modal/ModalWindow.html" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -81,7 +63,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -120,38 +102,6 @@
               <item name="book_ap_archi_client_repo" type="462c0819:PsiDirectoryNode" />
               <item name="backbone_person" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="book_ap_archi_client_repo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="book_ap_archi_client_repo" type="462c0819:PsiDirectoryNode" />
-              <item name="css_basic" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="book_ap_archi_client_repo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="book_ap_archi_client_repo" type="462c0819:PsiDirectoryNode" />
-              <item name="css_basic" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="book_ap_archi_client_repo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="book_ap_archi_client_repo" type="462c0819:PsiDirectoryNode" />
-              <item name="css_basic" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="book_ap_archi_client_repo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="book_ap_archi_client_repo" type="462c0819:PsiDirectoryNode" />
-              <item name="css_basic" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="mediaquery" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="book_ap_archi_client_repo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="book_ap_archi_client_repo" type="462c0819:PsiDirectoryNode" />
-              <item name="css_basic" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="modal" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="book_ap_archi_client_repo" type="b2602c69:ProjectViewProjectNode" />
@@ -269,15 +219,15 @@
       <option name="presentableId" value="Default" />
       <updated>1508026013288</updated>
       <workItem from="1508026014554" duration="1765000" />
-      <workItem from="1508027797617" duration="1323000" />
+      <workItem from="1508027797617" duration="1468000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3088000" />
+    <option name="totallyTimeSpent" value="3233000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
