@@ -18,12 +18,13 @@
       });
 
       $('#registerButton').on('click', function(event) {
+        event.preventDefault(); // これでFORMのSUBMITでリロードが走らなくなる
         var personId = $('#personId').val();
         var personName = $('#personName').val();
         var age = $('#age').val();
         var gender = $('#gender').val();
-        var person = {personId: personId, personName: personName, age: age, gender: gender};
-        if ($('#personId').val() == '') {
+        if (personId == '') {
+          var person = {personName: personName, age: age, gender: gender};
           $.ajax({
             url: "http://localhost:8080/person_service/persons",
             type: "POST",
@@ -38,6 +39,7 @@
             }
           });
         } else {
+          var person = {personId: personId, personName: personName, age: age, gender: gender};
           $.ajax({
             url: "http://localhost:8080/person_service/persons/" + personId,
             type: "PUT",

@@ -5,7 +5,7 @@
   <script type="text/javascript" src="./js/lib/jquery-1.12.1.js"></script>
   <script type="text/javascript" src="./js/lib/underscore.js"></script>
   <script type="text/javascript">
-    var ageSortedByAsc = false;
+    var isAsc = false; // ソートの昇順・降順を表す変数
     jQuery(function($) {
       $.ajaxSetup({cache: false});
       $.ajax({
@@ -19,12 +19,13 @@
       });
 
       $('#registerButton').on('click', function(event) {
+        event.preventDefault(); // これでFORMのSUBMITでリロードが走らなくなる
         var personId = $('#personId').val();
         var personName = $('#personName').val();
         var age = $('#age').val();
         var gender = $('#gender').val();
-        var person = {personId: personId, personName: personName, age: age, gender: gender};
-        if ($('#personId').val() == '') {
+        if (personId == '') {
+          var person = {personName: personName, age: age, gender: gender};
           $.ajax({
             url: "http://localhost:8080/person_service/persons",
             type: "POST",
@@ -39,6 +40,7 @@
             }
           });
         } else {
+          var person = {personId: personId, personName: personName, age: age, gender: gender};
           $.ajax({
             url: "http://localhost:8080/person_service/persons/" + personId,
             type: "PUT",
@@ -112,15 +114,15 @@
 
       $('#ageColumn').on('click', function(event) {
         $.ajax({
-          url: "http://localhost:8080/person_service/persons/age_sort",
+          url: "http://localhost:8080/person_service/persons/sort_by_age",
           type: "GET",
-          data: { ageSortedByAsc: ageSortedByAsc }, // 昇順・降順を表す値をクエリ文字列にセット
+          data: { isAsc: isAsc }, // 昇順・降順を表す値をクエリ文字列にセット
           success: function(response) {
             $('#personTable tbody').empty();
             $.each(response, function(index, person) {
               addRowToPersonTable(person);
-              if (ageSortedByAsc) ageSortedByAsc = false;
-              else ageSortedByAsc = true;
+              if (isAsc) isAsc = false;
+              else isAsc = true;
             })
           }
         });

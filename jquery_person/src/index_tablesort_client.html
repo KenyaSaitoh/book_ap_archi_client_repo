@@ -5,8 +5,8 @@
   <script type="text/javascript" src="./js/lib/jquery-1.12.1.js"></script>
   <script type="text/javascript" src="./js/lib/underscore.js"></script>
   <script type="text/javascript">
-    var persons = [];
-    var ageSortedByAsc = false;
+    var persons = []; // ソートするために変数にもPerson情報が必要
+    var isAsc = false;
     jQuery(function($) {
       $.ajaxSetup({cache: false});
       $.ajax({
@@ -14,19 +14,20 @@
         type: "GET",
         success: function(response) {
           $.each(response, function(index, person) {
-            addRowToPersonTable(person);
-            persons.push(person);
+            addRowToPersonTable(person);  // DOMの更新と…
+            persons.push(person);         // 変数の更新と、両方必要。この両者が非同期になるとバグになる。
           })
         }
       });
 
       $('#registerButton').on('click', function(event) {
+        event.preventDefault(); // これでFORMのSUBMITでリロードが走らなくなる
         var personId = $('#personId').val();
         var personName = $('#personName').val();
         var age = $('#age').val();
         var gender = $('#gender').val();
-        var person = {personId: personId, personName: personName, age: age, gender: gender};
-        if ($('#personId').val() == '') {
+        if (personId == '') {
+          var person = {personName: personName, age: age, gender: gender};
           $.ajax({
             url: "http://localhost:8080/person_service/persons",
             type: "POST",
@@ -34,6 +35,7 @@
             contentType: 'application/json; charset=UTF-8',
             success: function(response) {
               addRowToPersonTable(response);
+              persons.push(response);
               $('#personId').val('');
               $('#personName').val('');
               $('#age').val('');
@@ -41,6 +43,7 @@
             }
           });
         } else {
+          var person = {personId: personId, personName: personName, age: age, gender: gender};
           $.ajax({
             url: "http://localhost:8080/person_service/persons/" + personId,
             type: "PUT",
@@ -48,6 +51,7 @@
             contentType: 'application/json; charset=UTF-8',
             success: function(response) {
               updateRowToPersonTable(person);
+              replacePersons(person)
               $('#personId').val('');
               $('#personName').val('');
               $('#age').val('');
@@ -89,6 +93,18 @@
         $('#gender').val(person.gender);
       });
 
+      function replacePersons(person) {
+        persons.forEach((item, index) => {
+          console.log(item);
+          if (item.personId == person.personId) {
+            newPerson.push(person);
+          } else {
+            newPerson.push(item);
+          }
+        });
+        persons = newPerson;
+      }
+
       function addRowToPersonTable(person) {
         var template = $("#row-tmpl").text();
         var compiled = _.template(template);
@@ -113,19 +129,19 @@
       }
 
       $('#ageColumn').on('click', function(event) {
-        if (ageSortedByAsc) {
-          ageSortedByAsc = false;
+        if (isAsc) {
+          isAsc = false;
           persons.sort(function(left, right) {
             return left.age == right.age ? 0 : (left.age < right.age ? -1 : 1);
           });
         } else {
-          ageSortedByAsc = true;
+          isAsc = true;
           persons.sort(function(left, right) {
             return left.age == right.age ? 0 : (left.age < right.age ? 1 : -1);
           });
         }
         $('#personTable tbody').empty();
-        $.each(persons, function(index, person) {
+         $.each(persons, function(index, person) {
           addRowToPersonTable(person);
         })
       });
