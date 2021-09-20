@@ -194,6 +194,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -213,6 +215,8 @@
       <workItem from="1508594321722" duration="51000" />
       <workItem from="1562395621344" duration="30000" />
       <workItem from="1627202599050" duration="715000" />
+      <workItem from="1630824688840" duration="132000" />
+      <workItem from="1632058055607" duration="31000" />
     </task>
     <servers />
   </component>
